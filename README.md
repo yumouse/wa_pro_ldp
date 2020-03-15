@@ -3,6 +3,7 @@
     * Then work on your own branch
     * Create your own file directory (for merge maybe)
 * The file tree will be like:
+```
 repo
  |
  +----src
@@ -18,6 +19,7 @@ repo
  +----xxx
  |     |
  |     +---
+```
 
 * Second: please read the doc in ./src 
     * Know the generation of data
