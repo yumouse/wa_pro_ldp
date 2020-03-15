@@ -1,7 +1,7 @@
-# Decomposition of Harmony
-# Input: User ui'sset of values V [-1,1]d
-#        Privacy budget epsilon
-# Output: Perturbed set of values Vstar
+# Algorithm 1 Decomposition of Harmony
+# Input: User ui'sset of values V [-1,1]d   -> array(k,)
+#        Privacy budget epsilon             -> float
+# Output: Perturbed set of values Vstar     -> array(k,)
 import sys
 sys.path.append('../src')
 import gen
@@ -37,7 +37,7 @@ def dof(V,e):
 if __name__ == '__main__':
     tmpdata = gen.generator(10,3).gen()
     ary = np.array(tmpdata)
-    print ary.shape
+    # print ary.shape
     index = random.randint(0,9)
     V = ary[index,:,1]
     print V.shape

@@ -1,7 +1,7 @@
-# Value Perturbation Primitive
-# Input:    Value v of a KV pair
-#           Privacy budget epsilon
-# Output:   VPP(v,e) is the perturbed value vstar
+# Algorithm 2 Value Perturbation Primitive
+# Input:    Value v of a KV pair        -> float
+#           Privacy budget epsilon      -> float
+# Output:   VPP(v,e) is the perturbed value vstar   -> float
 import random
 import math
 def VPP(v,e):
