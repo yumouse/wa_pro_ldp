@@ -35,12 +35,15 @@ def dof(V,e):
     return Vstar
 
 if __name__ == '__main__':
-    tmpdata = gen.generator(10,3).gen()
+    u = int( sys.argv[1] )
+    k = int( sys.argv[2] )
+    epsilon = float(sys.argv[3])
+    tmpdata = gen.generator(u,k).gen()
     ary = np.array(tmpdata)
     # print ary.shape
     index = random.randint(0,9)
     V = ary[index,:,1]
     print V.shape
-    Vstar = dof(V,random.random())
+    Vstar = dof(V,epsilon)
     print Vstar
 

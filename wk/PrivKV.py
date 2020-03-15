@@ -57,10 +57,14 @@ def PrivKV(S,K,e1,e2):
     return  [fstar,mstar]
 
 if __name__ == '__main__':
-    S = np.array(gen.generator(10,3).gen())
-    K = ['qq','vx','tb']
-    e1 = random.random()
-    e2 = random.random()
+    u = int( sys.argv[1] )
+    k = int( sys.argv[2] )
+    e1 = float( sys.argv[3] )
+    e2 = float( sys.argv[4] )
+    S = np.array(gen.generator(u,k).gen())
+    K = []
+    for index in range(k):
+        K.append('tmp')
     vec = PrivKV(S,K,e1,e2)
     print 'The frequency vector is:'
     print vec[0]

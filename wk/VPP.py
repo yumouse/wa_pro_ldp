@@ -20,7 +20,7 @@ def VPP(v,e):
 
 if __name__ == '__main__':
     v = random.random()*2-1
-    e = random.random()
+    epsilon = argv[1]
     print "v is %f and epsilon is %f" %  (v,e)
     vstar = VPP(v,e)
     print "vstar is %f" % vstar

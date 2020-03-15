@@ -33,13 +33,17 @@ def LPP(Si,K,e1,e2):
     return np.array([j,kj,vstar])
 
 if __name__ == '__main__':
-    gene = gen.generator(10,3)
+    u = int( sys.argv[1] )
+    k = int( sys.argv[2] )
+    e1 = float( sys.argv[3] )
+    e2 = float( sys.argv[4] )
+    gene = gen.generator(u,k)
     data = np.array(gene.gen())
-    i = random.randint(0,9)
+    i = random.randint(0,u-1)
     Si = data[i,:,:]
-    K = ['qq','vx','tb']
-    e1 = random.random()
-    e2 = random.random()
+    K = []
+    for index in range(k):
+        K.append('tmp')
     tmp = LPP(Si,K,e1,e2)
     print 'The original data for user %d is :' % i
     print Si
