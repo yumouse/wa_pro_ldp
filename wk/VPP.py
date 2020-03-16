@@ -4,6 +4,7 @@
 # Output:   VPP(v,e) is the perturbed value vstar   -> float
 import random
 import math
+import sys
 def VPP(v,e):
     # step 1 Discretization
     if random.random() < (1+v)/2:
@@ -20,7 +21,7 @@ def VPP(v,e):
 
 if __name__ == '__main__':
     v = random.random()*2-1
-    epsilon = argv[1]
+    e = float( sys.argv[1] )
     print "v is %f and epsilon is %f" %  (v,e)
     vstar = VPP(v,e)
     print "vstar is %f" % vstar
