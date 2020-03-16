@@ -32,6 +32,27 @@ def LPP(Si,K,e1,e2):
             kj = 1
     return np.array([j,kj,vstar])
 
+def LPPp(Si,K,e1,e2,vstar):
+    d = len(K)
+    j = random.randint(0,d-1)
+    if Si[j,0] != 0:
+        vstar = VPP.VPP(Si[j,1],e2)
+        if random.random() < (math.exp(e1)/(1+math.exp(e1))):
+            kj = 1
+        else:
+            kj = 0
+            vstar = 0
+    else:
+        # m_ = random.random()*2-1
+        # vstar = VPP.VPP(m_,e2)
+        # this random discretization is replaced
+        if random.random() < (math.exp(e1)/(1+math.exp(e1))):
+            kj = 0
+            vstar = 0
+        else:
+            kj = 1
+    return np.array([j,kj,vstar])
+
 if __name__ == '__main__':
     u = int( sys.argv[1] )
     k = int( sys.argv[2] )
