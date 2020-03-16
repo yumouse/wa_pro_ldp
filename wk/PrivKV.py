@@ -68,25 +68,16 @@ def PrivKVp(S,K,e1,e2,vstar):
     clt_S = np.zeros(S.shape)
     # User-side perturbation
     for i in range(S.shape[0]):
-        tmp = LPP.LPPp(S[i,:,:],K,e1,e2,vstar[i])
+        tmp = LPP.LPPp(S[i,:,:],K,e1,e2,vstar)
+        # print tmp
         j = tmp[0]
         pair = tmp[1:]
         # give index j and <kj,v*> to data collector
         clt_S[i,j,:] = pair
     # print clt_S
     # Collector-side calibration
-    fstar = []
     mstar = []
     for k in range(len(K)):
-        # calculates frequency fkstar
-        fkstar = np.mean(clt_S[:,k,0],axis=0)
-        # print '1->fk*=%f' %fkstar
-        # calibrates the frequency
-        p = 1.0*math.exp(e1)/(math.exp(e1)+1)
-        # print 'p=%f' % p
-        fkstar = (p - 1 + fkstar)/(2*p-1)
-        # print '2->fk*=%f' % fkstar
-        fstar.append(fkstar)
         # Counts 1 and -1 in the set of values
         n1p = np.sum(np.array([x for x in (clt_S[:,k,1].tolist()) if x==1]),axis=0)
         n2p = -np.sum(np.array([x for x in (clt_S[:,k,1].tolist()) if x==-1]),axis=0)
@@ -112,7 +103,7 @@ def PrivKVp(S,K,e1,e2,vstar):
         # print 'After: n1*= %d n2*=%d ' % ( n1star,n2star )
         mkstar = (n1star-n2star)/N
         mstar.append(mkstar)
-    return  [fstar,mstar]
+    return  mstar
 
 if __name__ == '__main__':
     u = int( sys.argv[1] )

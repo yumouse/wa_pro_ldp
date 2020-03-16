@@ -3,7 +3,7 @@
 #        The set of keys K              -> list(k)
 #        Privacy budgets e1 and e2      -> float
 # Output:LPP(Si,K,e1,e2) is the perturbed KV pair 
-#        <Kj,vstar> of the j-th key     -> array(3,) <j,Kj,vstar>
+#        <Kj,vstar> of the j-th key     -> [j,Kj,vstar]
 import random
 import math
 import VPP
@@ -30,9 +30,9 @@ def LPP(Si,K,e1,e2):
             vstar = 0
         else:
             kj = 1
-    return np.array([j,kj,vstar])
+    return [j,kj,vstar]
 
-def LPPp(Si,K,e1,e2,vstar):
+def LPPp(Si,K,e1,e2,vstar_list):
     d = len(K)
     j = random.randint(0,d-1)
     if Si[j,0] != 0:
@@ -46,12 +46,13 @@ def LPPp(Si,K,e1,e2,vstar):
         # m_ = random.random()*2-1
         # vstar = VPP.VPP(m_,e2)
         # this random discretization is replaced
+        vstar = vstar_list[j]
         if random.random() < (math.exp(e1)/(1+math.exp(e1))):
             kj = 0
             vstar = 0
         else:
             kj = 1
-    return np.array([j,kj,vstar])
+    return [j,kj,vstar]
 
 if __name__ == '__main__':
     u = int( sys.argv[1] )
