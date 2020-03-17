@@ -17,19 +17,25 @@ import gen
 def PrivKV(S,K,e1,e2):
     clt_S = np.zeros(S.shape)
     # User-side perturbation
+    tmp_de = []
+    num = np.zeros(len(K))
     for i in range(S.shape[0]):
         tmp = LPP.LPP(S[i,:,:],K,e1,e2)
         j = tmp[0]
+        num[j] = num[j]+1
         pair = tmp[1:]
         # give index j and <kj,v*> to data collector
         clt_S[i,j,:] = pair
+        tmp_de.append(tmp[2])
+    # print 'Debug:'
+    # print '1-> %d  -1 -> %d ' % (len([x for x in tmp_de if x == 1]),len([x for x in tmp_de if x==-1]))
     # print clt_S
     # Collector-side calibration
     fstar = []
     mstar = []
     for k in range(len(K)):
         # calculates frequency fkstar
-        fkstar = np.mean(clt_S[:,k,0],axis=0)
+        fkstar = np.sum(clt_S[:,k,0],axis=0)/num[k]
         # print '1->fk*=%f' %fkstar
         # calibrates the frequency
         p = 1.0*math.exp(e1)/(math.exp(e1)+1)
@@ -66,14 +72,19 @@ def PrivKV(S,K,e1,e2):
 
 def PrivKVp(S,K,e1,e2,vstar):
     clt_S = np.zeros(S.shape)
+    # print len([x for x in vstar if x != 0]) 
+    # print vstar
     # User-side perturbation
+    num = np.zeros(len(K))
     for i in range(S.shape[0]):
         tmp = LPP.LPPp(S[i,:,:],K,e1,e2,vstar)
         # print tmp
         j = tmp[0]
+        num[j] = num[j]+1
         pair = tmp[1:]
         # give index j and <kj,v*> to data collector
         clt_S[i,j,:] = pair
+    # print 'Debug: 1-> %d -1 -> %d' % (len([x for x in vstar if x == 1]),len([x for x in vstar if x == -1]) )
     # print clt_S
     # Collector-side calibration
     mstar = []
@@ -83,9 +94,11 @@ def PrivKVp(S,K,e1,e2,vstar):
         n2p = -np.sum(np.array([x for x in (clt_S[:,k,1].tolist()) if x==-1]),axis=0)
         N = n1p + n2p
         # print '---------------------'
+        # print '%f   %f ' % (e1,e2)
         # print 'n1p = %d n2p = %d N=%d' % (n1p,n2p,N)
         # Calibrates the counts
         p = math.exp(e2)/(math.exp(e2)+1)
+        # print 'p is %f' % p
         n1star = ((p-1)*N+n1p)/(2*p-1)
         n2star = ((p-1)*N+n2p)/(2*p-1)
         # print 'n1*= %d n2*=%d ' % ( n1star,n2star )
@@ -108,10 +121,12 @@ def PrivKVp(S,K,e1,e2,vstar):
 def PrivKVp_2o(S,K,e1,e2,vstar):
     clt_S = np.zeros(S.shape)
     # User-side perturbation
+    num = np.zeros(len(K))
     for i in range(S.shape[0]):
         tmp = LPP.LPPp(S[i,:,:],K,e1,e2,vstar)
         # print tmp
         j = tmp[0]
+        num[j] = num[j]+1
         pair = tmp[1:]
         # give index j and <kj,v*> to data collector
         clt_S[i,j,:] = pair
@@ -121,7 +136,7 @@ def PrivKVp_2o(S,K,e1,e2,vstar):
     mstar = []
     for k in range(len(K)):
         # calculates frequency fkstar
-        fkstar = np.mean(clt_S[:,k,0],axis=0)
+        fkstar = np.sum(clt_S[:,k,0],axis=0)/num[k]
         # print '1->fk*=%f' %fkstar
         # calibrates the frequency
         p = 1.0*math.exp(e1)/(math.exp(e1)+1)
@@ -166,7 +181,18 @@ if __name__ == '__main__':
     for index in range(k):
         K.append('tmp')
     vec = PrivKV(S,K,e1,e2)
-    print 'The frequency vector is:'
+    # Calcualate the original data
+    ori_fre =  (np.sum(S[:,:,0],axis=0))/u
+    ori_mean =  (np.sum(S[:,:,1],axis=0))/(np.sum(S[:,:,0],axis=0))
+    print 'The frequency vector for original data is:'
+    print ori_fre
+    print 'The Mean vector for original data is:'
+    print ori_mean
+    print 'The frequency vector after is:'
     print vec[0]
-    print 'The Mean vector is:'
+    print 'The Mean vector after is:'
     print vec[1]
+    print 'The error rate is for frequency estimation(RE)'
+    print np.median((np.abs(ori_fre-vec[0]))/ori_fre)
+    print 'The error rate is for mean estimation(log(MSE))'
+    print np.log(np.sum((1.0/len(K))*np.power((ori_mean-vec[1]),2)) )

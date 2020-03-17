@@ -45,6 +45,7 @@ def PrivKVM(S,K,e,c):
     m_.append(m_1)
     # collector sends back v* = discretization(m_1) to each user
     vstar = discretization(m_1)
+    # vstar = m_1
     for r in range(1,c):
         # Calculate mean
         # print 'Debug %d' % len(vstar)
@@ -52,6 +53,7 @@ def PrivKVM(S,K,e,c):
         m_.append(m_tmp)
         # Collector sends back vstar
         vstar = discretization(m_tmp)
+        # vstar = m_tmp
     return [f_1,m_[c-1]]
 
 
@@ -65,7 +67,18 @@ if __name__ == '__main__':
     for index in range(k):
         K.append('tmp')
     vec = PrivKVM(S,K,e,c)
-    print 'The frequency vector is:'
+    # Calcualate the original data
+    ori_fre =  (np.sum(S[:,:,0],axis=0))/u
+    ori_mean =  (np.sum(S[:,:,1],axis=0))/(np.sum(S[:,:,0],axis=0))
+    print 'The frequency vector for original data is:'
+    print ori_fre
+    print 'The Mean vector for original data is:'
+    print ori_mean
+    print 'The frequency vector after is:'
     print vec[0]
-    print 'The Mean vector is:'
+    print 'The Mean vector after is:'
     print vec[1]
+    print 'The error rate is for frequency estimation(RE)'
+    print np.median((np.abs(ori_fre-vec[0]))/ori_fre)
+    print 'The error rate is for mean estimation(log(MSE))'
+    print np.log(np.sum((1.0/len(K))*np.power((ori_mean-vec[1]),2)) )

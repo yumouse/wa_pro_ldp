@@ -15,7 +15,7 @@ import gen
 
 def PBAt(e):
     scale = 10      # like super parameter
-    t = random.randint(2,scale)
+    t = random.randint(3,scale)
     return [1.0/t,1.0/t]
 
 def discretization(Para):
@@ -53,7 +53,18 @@ if __name__ == '__main__':
     for index in range(k):
         K.append('tmp')
     vec = PrivKVMplus(S,K,e,A0)
-    print 'The frequency vector is:'
+    # Calcualate the original data
+    ori_fre =  (np.sum(S[:,:,0],axis=0))/u
+    ori_mean =  (np.sum(S[:,:,1],axis=0))/(np.sum(S[:,:,0],axis=0))
+    print 'The frequency vector for original data is:'
+    print ori_fre
+    print 'The Mean vector for original data is:'
+    print ori_mean
+    print 'The frequency vector after is:'
     print vec[0]
-    print 'The Mean vector is:'
+    print 'The Mean vector after is:'
     print vec[1]
+    print 'The error rate is for frequency estimation(RE)'
+    print np.median((np.abs(ori_fre-vec[0]))/ori_fre)
+    print 'The error rate is for mean estimation(log(MSE))'
+    print np.log(np.sum((1.0/len(K))*np.power((ori_mean-vec[1]),2)) )
