@@ -52,12 +52,8 @@ def LPPp(Si,K,e1,e2,vstar_list):
             kj = 0
             vstar = 0
     else:
-        # m_ = random.random()*2-1
-        # vstar = VPP.VPP(m_,e2)
         # this random discretization is replaced
-        # tmp_list = discretization(vstar_list)
-        vstar = vstar_list[j]
-        # vstar = VPP.VPP(vstar_list[j],e2)
+        vstar = VPP.VPP(vstar_list[j],e2)
 
         if random.random() < (math.exp(e1)/(1+math.exp(e1))):
             kj = 0
