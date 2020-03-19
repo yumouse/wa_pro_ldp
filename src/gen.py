@@ -1,4 +1,5 @@
 import random
+import numpy as np
 
 class generator:
     ''' PrimKV Data generator '''
@@ -15,7 +16,17 @@ class generator:
     def gen(self):
         ''' returns a list in shape (n,k,2) '''
         random.setstate(self.state)
-        x=[[([1,random.random()*2-1] if random.random()<self.P else [0,0])
+        x=[[([1,self.rand()] if random.random()<self.P else [0,0])
                     for i in range(self.k)] for i in range(self.n)]
         self.state=random.getstate()
         return x
+    
+    def rand(self):
+        mean = random.random()
+        sig = random.randint(1,10)
+        x = np.random.normal(mean,sig,size=(1,))
+        if x[0] > 1:
+            x[0] = 1.0
+        elif x[0] < -1:
+            x[0] = -1.0
+        return x[0]
