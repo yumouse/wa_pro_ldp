@@ -12,6 +12,7 @@ import random
 import sys
 sys.path.append('../src')
 import gen
+from generate import *
 
 
 def PBA(e,c):

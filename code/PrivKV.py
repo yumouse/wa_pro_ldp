@@ -12,7 +12,7 @@ import numpy as np
 import sys
 sys.path.append('../src')
 import gen
-
+from generate import *
 
 def PrivKV(S,K,e1,e2):
     clt_S = np.zeros(S.shape)
@@ -176,7 +176,7 @@ if __name__ == '__main__':
     k = int( sys.argv[2] )
     e1 = float( sys.argv[3] )
     e2 = float( sys.argv[4] )
-    S = np.array(gen.generator(u,k).gen())
+    S = np.array( gen.generator(u,k).gen() )
     K = []
     for index in range(k):
         K.append('tmp')
