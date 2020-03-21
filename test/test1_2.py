@@ -17,11 +17,11 @@ colorPos = 0
 for c in range(5,40,5):
 	MSEList = []
 	eList = []
-	for e in range(5,32,2):
+	for e in range(5,33):
 		temp1 = []
 		temp2 = []
 		for i in range(3):
-			command = 'python ../code/PrivKVM.py 100 100 ' + str(float(e)/10) + ' ' + str(c)
+			command = 'python ../code/PrivKVM.py 100 10 ' + str(float(e)/10) + ' ' + str(c)
 			result = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE,stderr=subprocess.PIPE).communicate()
 			temp1.append(float(result[0].split('\n')[-2]))
 		print(float(e)/10)
