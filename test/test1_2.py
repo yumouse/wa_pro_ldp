@@ -44,7 +44,7 @@ for c in range(5,40,5):
 	plt.plot(x, pRE(x), color=color[colorPos],label='c='+str(c))	
 	colorPos += 1
 	
-plt.title('Graph of log(MSE) and e in LDP [user=100/k=100]')
+plt.title('Graph of log(MSE) and e in LDP [user=100/k=10]')
 plt.xlabel('e')
 plt.ylabel('Log(MSE)')
 plt.legend()
