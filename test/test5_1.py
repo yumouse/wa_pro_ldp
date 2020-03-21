@@ -56,7 +56,7 @@ for e in eList:
 x_p3 = np.array(eList)
 y_p3 = np.array(CostList_3)
 plt.scatter(x_p3, y_p3)
-plt.plot(x_p3, y_p3, color=color[1], label='PriKVM-3')
+plt.plot(x_p3, y_p3, color=color[1], label='PrivKVM-3')
 
 # prikvm plus
 for e in eList:
@@ -76,7 +76,7 @@ for e in eList:
 x_plus = np.array(eList)
 y_plus = np.array(CostList_plus)
 plt.scatter(x_plus, y_plus)
-plt.plot(x_plus, y_plus, color=color[2], label='PriKVMPlus')
+plt.plot(x_plus, y_plus, color=color[2], label='PrivKVM+')
 
 plt.title('Graph of total cost')
 plt.xlabel('e')

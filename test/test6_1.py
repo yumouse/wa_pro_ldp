@@ -32,10 +32,10 @@ for user in range(10, 1010, 20):
 
 x1 = np.array(userList)
 y1 = np.array(MSEList)
-parameter1 = np.polyfit(x1, y1, 5)
+parameter1 = np.polyfit(x1, y1, 3)
 func1 = np.poly1d(parameter1)
 
-plt.plot(x1, func1(x1), color=color[1], label='privKVM-6')
+plt.plot(x1, func1(x1), color=color[1], label='PrivKVM-6')
 
 userList = []
 MSEList = []
@@ -55,9 +55,9 @@ for user in range(10, 1010, 20):
 
 x2 = np.array(userList)
 y2 = np.array(MSEList)
-parameter2 = np.polyfit(x2, y2, 5)
+parameter2 = np.polyfit(x2, y2, 3)
 func2 = np.poly1d(parameter2)
-plt.plot(x2, func2(x2), color=color[2], label='privKVMplus')
+plt.plot(x2, func2(x2), color=color[2], label='PrivKVM+')
 
 
 userList = []
@@ -79,13 +79,13 @@ for user in range(10, 1010, 20):
 
 x3 = np.array(userList)
 y3 = np.array(MSEList)
-parameter3 = np.polyfit(x3, y3, 5)
+parameter3 = np.polyfit(x3, y3, 3)
 func3 = np.poly1d(parameter3)
 
-plt.plot(x3, func3(x3), color=color[3], label='privKVM-3')
+plt.plot(x3, func3(x3), color=color[3], label='PrivKVM-3')
 
-plt.title('Graph of log1(MSE) and the number of users in privKVM(+)')
-plt.xlabel('the number of users')
-plt.ylabel('log(MSE)')
+plt.title('Graph of Log(MSE)  and the number of users in PrivKVM+')
+plt.xlabel('The number of users')
+plt.ylabel('Log(MSE)')
 plt.legend()
 plt.show()

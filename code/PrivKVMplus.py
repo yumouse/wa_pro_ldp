@@ -35,13 +35,22 @@ def PrivKVMplus(S,K,e,A0):
     [fstar,mstar] = PrivKV.PrivKVp_2o(S,K,e1,e2,vstar)
     # Calculate the bias
     Fstar = A0 - 1.0/len(K)*np.sum(np.abs(np.array(mstar)-np.array(mb)))
+    iter_times = 1
     while Fstar < 0:
         vstar = discretization(mstar)
         mb = mstar
         [e1,e2] = PBAt(e-e1-e2)
         mstar = PrivKV.PrivKVp(S,K,e1,e2,vstar)
         Fstar = A0 - 1.0/len(K)*np.sum(np.abs(np.array(mstar)-np.array(mb)))
-    return [fstar,mstar]
+        iter_times += 1
+        if iter_times > 100:
+            break
+
+    ori_mean = (np.sum(S[:, :, 1], axis=0)) / (np.sum(S[:, :, 0], axis=0))
+    F_1 = abs(mstar - ori_mean)
+    F_1_clean = F_1[~np.isnan(F_1)]  # remove nan
+    TotalCost = np.sum(F_1_clean) / F_1_clean.shape[0] + A0 * iter_times
+    return [fstar,mstar,TotalCost]
 
 if __name__ == '__main__':
     u = int( sys.argv[1] )

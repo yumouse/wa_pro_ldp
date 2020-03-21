@@ -55,7 +55,11 @@ def PrivKVM(S,K,e,c):
         # Collector sends back vstar
         vstar = discretization(m_tmp)
         # vstar = m_tmp
-    return [f_1,m_[c-1]]
+    ori_mean = (np.sum(S[:, :, 1], axis=0)) / (np.sum(S[:, :, 0], axis=0))
+    F_1 = abs(m_[c-1] - ori_mean)
+    F_1_clean = F_1[~np.isnan(F_1)]  # remove nan
+    TotalCost = np.sum(F_1_clean) / F_1_clean.shape[0] + 0.02 * c
+    return [f_1,m_[c-1], TotalCost]
 
 
 if __name__ == '__main__':
