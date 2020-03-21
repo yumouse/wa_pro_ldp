@@ -42,7 +42,7 @@ for e in [0.1,0.2,0.4,0.8,1.6]:
 	plt.plot(x, pRE(x), color=color[colorPos],label='e='+str(e))	
 	colorPos += 1
 
-plt.title('Graph of RE and iterations in LDP [user=100/k=100]')
+plt.title('Graph of RE and iterations in LDP [user=400/k=30]')
 plt.xlabel('# of iterations')
 plt.ylabel('RE')
 plt.legend()
