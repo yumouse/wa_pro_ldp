@@ -14,10 +14,10 @@ class generator:
         self.state=random.getstate()
 
     def gen(self):
-        ''' returns a list in shape (n,k,2) '''
+        ''' returns a list in shape (n,) '''
         random.setstate(self.state)
-        x=[[([1,self.rand()] if random.random()<self.P else [0,0])
-                    for i in range(self.k)] for i in range(self.n)]
+        x=[ random.randint(1,self.k-1) if random.random()<self.P else 0
+                     for i in range(self.n)]
         self.state=random.getstate()
         return x
     
