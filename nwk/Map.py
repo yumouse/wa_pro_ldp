@@ -15,7 +15,7 @@ def map(si,k):
 if __name__ == '__main__':
     u = int( sys.argv[1] )
     k = int( sys.argv[2] )
-    tmpdata = gen.generator(u,k).gen()
+    tmpdata = gen.generator(u,k).gen_new()
     print tmpdata
     S = [ map(si,k) for si in tmpdata ]
     print S

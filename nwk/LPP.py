@@ -31,7 +31,7 @@ if __name__ == '__main__':
     k = int( sys.argv[2] )
     e = float( sys.argv[3] )
     gene = gen.generator(u,k)
-    data = gene.gen()
+    data = gene.gen_new()
     S = [ Map.map(si,k) for si in data ]
     S = np.array(S)
     i = random.randint(0,u-1)

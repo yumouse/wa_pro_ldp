@@ -13,7 +13,7 @@ class generator:
             random.seed(sd)
         self.state=random.getstate()
 
-    def gen(self):
+    def gen_new(self):
         ''' returns a list in shape (n,) '''
         random.setstate(self.state)
         x=[ random.randint(1,self.k-1) if random.random()<self.P else 0

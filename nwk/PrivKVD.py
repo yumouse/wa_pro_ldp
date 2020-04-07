@@ -40,7 +40,7 @@ if __name__ == '__main__':
     u = int( sys.argv[1] )
     k = int( sys.argv[2] )
     e = float( sys.argv[3] )
-    S = gen.generator(u,k).gen()
+    S = gen.generator(u,k).gen_new()
     fstar = PrivKVD(S,k,e)
     ori_fre = []
     for i in range(k):
