@@ -9,7 +9,7 @@ import sys
 sys.path.append('../src')
 import gen
 import Map
-import LPP
+import nLPP
 import numpy as np
 
 def PrivKVD(S,k,e):
@@ -19,7 +19,7 @@ def PrivKVD(S,k,e):
     # User-side perturbation
     num = np.zeros(k)
     for i in range(nS.shape[0]):
-        tmp = LPP.LPP(nS[i,:,:],k,e)
+        tmp = nLPP.LPP(nS[i,:,:],k,e)
         j = tmp[0]
         num[j] = num[j]+1
         pair = tmp[1:]
