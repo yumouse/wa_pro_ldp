@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # All needed parameters
-u = 1000
+u = 10000
 k = 5
 e1 = 0.2
 e2 = 0.2
@@ -72,17 +72,17 @@ for i in range(30):
     execute_time3.append(temp3/10)
     execute_time4.append(temp4/10)
 
-content = ['PrivKVD','PrivKV','PrivKVM','PrivKVM+']
+content = ['PrivKVD','PrivKV','PrivKVM']
 xRay = [i for i in range(1,31)]
-yRay = [execute_time1,execute_time2,execute_time3,execute_time4]
+yRay = [execute_time1,execute_time2,execute_time3]
 color = ['green','blue','skyblue','hotpink','red','olive','yellow',]
 colorPos = 0
-for i in range(4):
+for i in range(3):
     x = np.array(xRay)
     y = np.array(yRay[i])
     parameter = np.polyfit(x, y, 5)
     p = np.poly1d(parameter)
-    plt.scatter(x,y)
+    # plt.scatter(x,y)
     plt.plot(x, p(x), color=color[colorPos], label=content[i])	
     colorPos += 1    
 plt.title('Graph of time comparison in different LDP [u=10^3/k=5/e1=0.2/e2=0.2/c=4/A0=0.1]')
